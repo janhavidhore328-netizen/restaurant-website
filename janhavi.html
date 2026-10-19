@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EMBER | Fine Dining</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    :root {
+      --bg: #11110f;
+      --gold: #d7ad69;
+      --cream: #f5efe5;
+      --muted: #aaa69e;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--cream);
+      font-family: Arial, sans-serif;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 8%;
+      background: #11110f;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid #292823;
+    }
+
+    .logo {
+      font-size: 27px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      font-weight: bold;
+    }
+
+    nav a {
+      color: var(--cream);
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      padding: 80px 10%;
+      background:
+        linear-gradient(90deg, rgba(12,12,10,.95),
+        rgba(12,12,10,.48)),
+        url("https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=85")
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 650px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      letter-spacing: 4px;
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: clamp(48px, 7vw, 86px);
+      font-weight: normal;
+      line-height: 1.05;
+      margin-bottom: 24px;
+    }
+
+    h1 span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 15px 27px;
+      background: var(--gold);
+      color: #171510;
+      border: 1px solid var(--gold);
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .btn:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    section {
+      padding: 90px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      font: normal clamp(34px, 5vw, 48px) Georgia, serif;
+      margin-bottom: 15px;
+    }
+
+    .section-desc {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .about {
+      text-align: center;
+      max-width: 760px;
+      margin: auto;
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .dish {
+      background: #1a1a17;
+      border: 1px solid #302e27;
+      transition: transform .25s;
+    }
+
+    .dish:hover {
+      transform: translateY(-6px);
+    }
+
+    .dish img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .dish-info {
+      padding: 23px;
+    }
+
+    .dish-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .dish-heading h3 {
+      font: normal 21px Georgia, serif;
+    }
+
+    .price {
+      color: var(--gold);
+      white-space: nowrap;
+    }
+
+    .dish p {
+      font-size: 13px;
+    }
+
+    .booking {
+      background: #191915;
+    }
+
+    .booking-form {
+      max-width: 720px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .booking-form input,
+    .booking-form select {
+      width: 100%;
+      padding: 15px;
+      background: #11110f;
+      border: 1px solid #39372f;
+      color: white;
+      font: inherit;
+    }
+
+    .booking-form input:focus,
+    .booking-form select:focus {
+      outline: 1px solid var(--gold);
+    }
+
+    .booking-form button {
+      grid-column: 1 / -1;
+      font-size: 15px;
+    }
+
+    #message {
+      grid-column: 1 / -1;
+      color: var(--gold);
+      text-align: center;
+    }
+
+    footer {
+      padding: 35px 8%;
+      text-align: center;
+      border-top: 1px solid #292823;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    footer span {
+      color: var(--gold);
+    }
+
+    @media (max-width: 750px) {
+      nav {
+        padding: 20px 5%;
+        flex-wrap: wrap;
+        gap: 18px;
+      }
+
+      nav a {
+        margin-left: 10px;
+        font-size: 12px;
+      }
+
+      .hero {
+        min-height: 75vh;
+        padding: 65px 7%;
+      }
+
+      section {
+        padding: 65px 6%;
+      }
+
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .dish img {
+        height: 250px;
+      }
+
+      .booking-form {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-form button,
+      #message {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">EMBER.</div>
+    <div>
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#booking">Reservations</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="home">
+    <div class="hero-content">
+      <div class="eyebrow">AN ELEVATED DINING EXPERIENCE</div>
+      <h1>Flavour meets <span>art.</span></h1>
+      <p>
+        Discover exceptional cuisine, carefully sourced ingredients,
+        and unforgettable evenings in a setting designed for
+        those who appreciate the finer things.
+      </p>
+      <a class="btn" href="#menu">EXPLORE OUR MENU</a>
+      <a class="btn" href="#booking"
+         style="margin-left:10px;background:transparent;color:#d7ad69">
+        BOOK A TABLE
+      </a>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="about">
+      <div class="eyebrow">OUR PHILOSOPHY</div>
+      <h2 class="section-title">More than a meal.</h2>
+      <p>
+        At EMBER, every plate tells a story. We combine seasonal
+        ingredients, contemporary culinary techniques, and
+        thoughtful hospitality to create moments worth remembering.
+      </p>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="eyebrow" style="text-align:center">THE CHEF'S SELECTION</div>
+    <h2 class="section-title">Our Signature Menu</h2>
+    <p class="section-desc">Crafted with passion. Served with purpose.</p>
+
+    <div class="menu-grid">
+
+      <article class="dish">
+        <img src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=80"
+             alt="Creamy pasta">
+        <div class="dish-info">
+          <div class="dish-heading">
+            <h3>Truffle Pasta</h3>
+            <span class="price">₹549</span>
+          </div>
+          <p>Handcrafted pasta, parmesan, herbs, and a rich truffle sauce.</p>
+        </div>
+      </article>
+
+      <article class="dish">
+        <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=700&q=80"
+             alt="Grilled steak">
+        <div class="dish-info">
+          <div class="dish-heading">
+            <h3>Grilled Special</h3>
+            <span class="price">₹799</span>
+          </div>
+          <p>Smoky grilled flavours with seasonal vegetables and house sauce.</p>
+        </div>
+      </article>
+
+      <article class="dish">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=700&q=80"
+             alt="Fresh pizza">
+        <div class="dish-info">
+          <div class="dish-heading">
+            <h3>Garden Pizza</h3>
+            <span class="price">₹399</span>
+          </div>
+          <p>Stone-baked crust, fresh vegetables, mozzarella, and basil.</p>
+        </div>
+      </article>
+
+      <article class="dish">
+        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=700&q=80"
+             alt="Glazed doughnuts">
+        <div class="dish-info">
+          <div class="dish-heading">
+            <h3>Sweet Indulgence</h3>
+            <span class="price">₹249</span>
+          </div>
+          <p>A decadent dessert to finish your dining experience.</p>
+        </div>
+      </article>
+
+      <article class="dish">
+        <img src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?auto=format&fit=crop&w=700&q=80"
+             alt="Fresh salad">
+        <div class="dish-info">
+          <div class="dish-heading">
+            <h3>Harvest Bowl</h3>
+            <span class="price">₹329</span>
+          </div>
+          <p>Fresh greens, crisp seasonal vegetables, and a house dressing.</p>
+        </div>
+      </article>
+
+      <article class="dish">
+        <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=700&q=80"
+             alt="Creamy milkshake">
+        <div class="dish-info">
+          <div class="dish-heading">
+            <h3>Signature Shake</h3>
+            <span class="price">₹199</span>
+          </div>
+          <p>A creamy, indulgent blend finished with our signature touch.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="booking" id="booking">
+    <div class="eyebrow" style="text-align:center">YOUR TABLE AWAITS</div>
+    <h2 class="section-title">Reserve Your Evening</h2>
+    <p class="section-desc">
+      Make your next gathering something special.
+    </p>
+
+    <form class="booking-form" id="bookingForm">
+      <input type="text" name="name" placeholder="Your full name" required>
+      <input type="email" name="email" placeholder="Email address" required>
+
+      <input type="date" name="date" id="date" required>
+      <select name="guests" required>
+        <option value="">Number of guests</option>
+        <option value="1">1 Guest</option>
+        <option value="2">2 Guests</option>
+        <option value="3">3 Guests</option>
+        <option value="4">4 Guests</option>
+        <option value="5">5 Guests</option>
+        <option value="6">6 Guests</option>
+      </select>
+
+      <select name="time" required>
+        <option value="">Choose a time</option>
+        <option>12:00 PM</option>
+        <option>1:00 PM</option>
+        <option>2:00 PM</option>
+        <option>7:00 PM</option>
+        <option>8:00 PM</option>
+        <option>9:00 PM</option>
+      </select>
+
+      <input type="tel" name="phone" placeholder="Phone number" required>
+
+      <button class="btn" type="submit">REQUEST A RESERVATION</button>
+      <p id="message" role="status"></p>
+    </form>
+  </section>
+
+  <footer>
+    <p>EMBER. — Crafted for unforgettable moments.</p>
+    <p style="margin-top:10px">
+      © <span id="year"></span> EMBER Restaurant. All rights reserved.
+    </p>
+  </footer>
+
+  <script>
+    const dateInput = document.getElementById("date");
+    const today = new Date();
+    const localToday = [
+      today.getFullYear(),
+      String(today.getMonth() + 1).padStart(2, "0"),
+      String(today.getDate()).padStart(2, "0")
+    ].join("-");
+
+    dateInput.min = localToday;
+    document.getElementById("year").textContent = today.getFullYear();
+
+    document.getElementById("bookingForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const formData = new FormData(this);
+      const name = formData.get("name");
+      const date = formData.get("date");
+      const guests = formData.get("guests");
+
+      document.getElementById("message").textContent =
+        `Thank you, ${name}! Your request for ${guests} guest(s) on ${date} has been received in this demo.`;
+
+      // Connect a backend or booking service to save real reservations.
+      this.reset();
+      dateInput.min = localToday;
+    });
+  </script>
+
+</body>
+</html>
